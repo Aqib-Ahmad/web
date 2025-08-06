@@ -18,6 +18,7 @@ credentials: true,)
 -> in frontend with axios - withCredentials: true
 
 ---========================
+->install react redux , redux toolkit
 
 body
 navbar
