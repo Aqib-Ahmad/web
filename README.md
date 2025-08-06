@@ -7,6 +7,17 @@
 -> install react-router-dom
 -> creating routing , BrowserRouter , Routes , Route , (outlet in body com)
 -> creating footer
+->creating Lohin page
+->install axios
+
+---========================
+
+-> CORS install in backend (
+origin: "http://localhost:5173",
+credentials: true,)
+-> in frontend with axios - withCredentials: true
+
+---========================
 
 body
 navbar
