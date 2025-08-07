@@ -19,6 +19,8 @@ credentials: true,)
 
 ---========================
 ->install react redux , redux toolkit
+->logout
+->profile
 
 body
 navbar
