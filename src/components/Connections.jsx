@@ -14,7 +14,6 @@ const Connections = () => {
         withCredentials: true,
       });
       dispatch(addConnection(res.data));
-      console.log(res.data);
     } catch (error) {
       console.log(error, "err");
     }
@@ -40,11 +39,11 @@ const Connections = () => {
           <h1 className="text-center font-bold text-2xl mt-5 ">
             My Connections
           </h1>
-          {connections.map((connectionData) => {
+          {connections.map((connectionData, index) => {
             const { firstName, lastName, about, age, photoUrl } =
               connectionData.fromUserId;
             return (
-              <div>
+              <div key={index}>
                 <div className="card  bg-base-100 card-xs shadow-sm border border-amber-500 flex flex-wrap justify-around items-center my-3 py-3 w-96">
                   <div>
                     <img

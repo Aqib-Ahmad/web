@@ -6,8 +6,11 @@ const UsersCard = ({ feed }) => {
   return (
     <>
       {feed &&
-        feed.map((user) => (
-          <div className="card bg-neutral text-neutral-content w-96 m-auto mt-3">
+        feed.map((user, index) => (
+          <div
+            key={index}
+            className="card bg-neutral text-neutral-content w-96 m-auto mt-3"
+          >
             <div className="card-body items-center text-center">
               <div className="text-center w-20 ">
                 <img src={user.photoUrl} alt="user photo" />

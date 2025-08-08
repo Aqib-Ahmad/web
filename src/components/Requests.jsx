@@ -3,32 +3,45 @@ import React, { useEffect } from "react";
 import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import {} from "../utils/ConnectionSlice";
-import { addeptRequests } from "../utils/requestSlice";
+import { addeptRequests, removeRequest } from "../utils/requestSlice";
 
 const Requests = () => {
   const dispatch = useDispatch();
   const connectionsRequests = useSelector((store) => store.requests);
-  console.log(connectionsRequests);
 
+  const reviewRequest = async (status, _id) => {
+    try {
+      await axios.post(
+        BASE_URL + "/request/review/" + status + "/" + _id,
+        {},
+        { withCredentials: true }
+      );
+      dispatch(removeRequest(_id));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const requestsReceived = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/requests/received", {
         withCredentials: true,
       });
+
       dispatch(addeptRequests(res.data));
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
   };
+
   useEffect(() => {
     requestsReceived();
   }, []);
-
   if (!connectionsRequests || connectionsRequests.length === 0) {
     return (
       <div>
+        {" "}
         <h1 className="text-center font-bold text-red-600 text-2xl mt-5">
-          No Connection Request
+          No Connection
         </h1>
       </div>
     );
@@ -61,8 +74,22 @@ const Requests = () => {
                     <p>Age: {age ? age : ""}</p>
                   </div>
                   <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Accept</button>
-                    <button className="btn btn-ghost">Reject</button>
+                    <button
+                      className="btn btn-primary"
+                      onClick={() =>
+                        reviewRequest("accepted", connectionData._id)
+                      }
+                    >
+                      Accept
+                    </button>
+                    <button
+                      className="btn btn-ghost"
+                      onClick={() =>
+                        reviewRequest("rejected", connectionData._id)
+                      }
+                    >
+                      Reject
+                    </button>
                   </div>
                 </div>
               </div>

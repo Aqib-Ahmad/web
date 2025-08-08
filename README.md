@@ -24,6 +24,10 @@ credentials: true,)
 -> exit profile
 ->show toast on save
 ->see all connections
+-> new connections requests
+-> accept/reject request
+-> send or ignore requests in feed
+->signup New user
 ->
 body
 navbar
