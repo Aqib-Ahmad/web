@@ -45,7 +45,7 @@ const Connections = () => {
               connectionData.fromUserId;
             return (
               <div>
-                <div className="card  bg-base-100 card-xs shadow-sm border border-amber-500 flex flex-wrap justify-around items-center py-3 w-96">
+                <div className="card  bg-base-100 card-xs shadow-sm border border-amber-500 flex flex-wrap justify-around items-center my-3 py-3 w-96">
                   <div>
                     <img
                       className="w-20 rounded-full"
