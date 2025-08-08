@@ -22,7 +22,9 @@ credentials: true,)
 ->logout
 ->profile
 -> exit profile
-
+->show toast on save
+->see all connections
+->
 body
 navbar
 Route =/=> show feed
