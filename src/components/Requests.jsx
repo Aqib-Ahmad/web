@@ -8,6 +8,7 @@ import { addeptRequests, removeRequest } from "../utils/requestSlice";
 const Requests = () => {
   const dispatch = useDispatch();
   const connectionsRequests = useSelector((store) => store.requests);
+  console.log(connectionsRequests);
 
   const reviewRequest = async (status, _id) => {
     try {
@@ -18,7 +19,7 @@ const Requests = () => {
       );
       dispatch(removeRequest(_id));
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
   const requestsReceived = async () => {
@@ -36,10 +37,10 @@ const Requests = () => {
   useEffect(() => {
     requestsReceived();
   }, []);
+
   if (!connectionsRequests || connectionsRequests.length === 0) {
     return (
       <div>
-        {" "}
         <h1 className="text-center font-bold text-red-600 text-2xl mt-5">
           No Connection
         </h1>
