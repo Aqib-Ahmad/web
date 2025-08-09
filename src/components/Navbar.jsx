@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constant";
 import { removeUser } from "../utils/userSlice";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const user = useSelector((store) => store.user);
@@ -18,13 +19,18 @@ const Navbar = () => {
       console.error(err);
     }
   };
+
   return (
     <>
       <div className="navbar bg-base-300 shadow-sm">
         <div className="flex-1">
-          <Link to="/" className="btn btn-ghost text-xl">
-            Dev tinder
-          </Link>
+          {user ? (
+            <Link to="/" className="btn btn-ghost ">
+              Connect
+            </Link>
+          ) : (
+            <Link className="btn btn-ghost ">Code Connect</Link>
+          )}
         </div>
         <div className="flex-none">
           {user && (
@@ -56,17 +62,14 @@ const Navbar = () => {
                 </div>
                 <ul
                   tabIndex={0}
-                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-5 w-52 p-2 shadow"
+                  className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1  w-52 p-2 shadow mt-5"
                 >
                   <li>
                     <Link to="/profile" className="justify-between">
                       Profile
-                      <span className="badge">New</span>
                     </Link>
                   </li>
-                  <li>
-                    <a>Settings</a>
-                  </li>
+
                   <li>
                     <a onClick={handleLogOut}>Logout</a>
                   </li>

@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BASE_URL } from "../utils/constant";
 import { useDispatch, useSelector } from "react-redux";
 import {} from "../utils/ConnectionSlice";
@@ -7,8 +7,9 @@ import { addeptRequests, removeRequest } from "../utils/requestSlice";
 
 const Requests = () => {
   const dispatch = useDispatch();
+  const [toast, setToast] = useState(false);
+
   const connectionsRequests = useSelector((store) => store.requests);
-  console.log(connectionsRequests);
 
   const reviewRequest = async (status, _id) => {
     try {
@@ -18,6 +19,8 @@ const Requests = () => {
         { withCredentials: true }
       );
       dispatch(removeRequest(_id));
+      setToast(true);
+      setTimeout(() => setToast(false), 3000);
     } catch (error) {
       console.log(error.message);
     }
@@ -28,7 +31,7 @@ const Requests = () => {
         withCredentials: true,
       });
 
-      dispatch(addeptRequests(res.data));
+      dispatch(addeptRequests(res.data.data));
     } catch (error) {
       console.error(error.message);
     }
@@ -38,23 +41,33 @@ const Requests = () => {
     requestsReceived();
   }, []);
 
-  if (!connectionsRequests || connectionsRequests.length === 0) {
+  if (!connectionsRequests) return;
+  if (connectionsRequests.length == 0) {
     return (
       <div>
         <h1 className="text-center font-bold text-red-600 text-2xl mt-5">
-          No Connection
+          No Requests Found
         </h1>
       </div>
     );
   }
   return (
     <>
+      {toast && (
+        <div>
+          <div className="toast toast-top toast-center z-1 ">
+            <div className="alert alert-info">
+              <span>Aeeepting connection request.</span>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="flex justify-center">
         <div>
           <h1 className="text-center font-bold text-2xl mt-5 ">
             My Connection Request
           </h1>
-          {connectionsRequests.data.map((connectionData, index) => {
+          {connectionsRequests.map((connectionData, index) => {
             const { firstName, lastName, about, age, photoUrl } =
               connectionData.fromUserId;
             return (

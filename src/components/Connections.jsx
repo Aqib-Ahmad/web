@@ -7,7 +7,7 @@ import { addConnection } from "../utils/ConnectionSlice";
 const Connections = () => {
   const dispatch = useDispatch();
   const connections = useSelector((store) => store.connections);
-
+  const loggedUserId = useSelector((store) => store.user);
   const fectionConnections = async () => {
     try {
       const res = await axios.get(BASE_URL + "/user/connections", {
@@ -15,7 +15,7 @@ const Connections = () => {
       });
       dispatch(addConnection(res.data));
     } catch (error) {
-      console.log(error, "err");
+      console.log(error.message, "err");
     }
   };
   useEffect(() => {
@@ -25,9 +25,8 @@ const Connections = () => {
   if (!connections || connections.length === 0) {
     return (
       <div>
-        {" "}
         <h1 className="text-center font-bold text-red-600 text-2xl mt-5">
-          No Connection
+          No Connections Found
         </h1>
       </div>
     );
@@ -40,8 +39,13 @@ const Connections = () => {
             My Connections
           </h1>
           {connections.map((connectionData, index) => {
-            const { firstName, lastName, about, age, photoUrl } =
-              connectionData.fromUserId;
+            const myuser =
+              connectionData.fromUserId._id === loggedUserId._id
+                ? connectionData.toUserId
+                : connectionData.fromUserId;
+
+            const { firstName, lastName, about, age, photoUrl } = myuser;
+
             return (
               <div key={index}>
                 <div className="card  bg-base-100 card-xs shadow-sm border border-amber-500 flex flex-wrap justify-around items-center my-3 py-3 w-96">
