@@ -34,3 +34,11 @@ navbar
 Route =/=> show feed
 Route =/login=> login
 Route =/connections=> connections
+
+<!-- REAL TIME CHAT WEBSOCKET SOCKET.IO  -->
+
+backend and frontend connection
+1 we go in backend
+npm install socket.io
+
+2 we go in frontend
